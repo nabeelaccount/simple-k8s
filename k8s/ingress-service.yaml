@@ -4,29 +4,34 @@ kind: Ingress
 metadata:
   name: ingress-service
   annotations:
-    # ENABLE REGEX
+    # REMOVE CLASSNAME ANNOTATION
     nginx.ingress.kubernetes.io/use-regex: 'true'
-    # REMOVE REQUEST PATH WHEN FORWARDING REQUEST
+    # ADD ANNOTATION
     nginx.ingress.kubernetes.io/rewrite-target: /$1
+    # ADD ANNOTATION
 spec:
-  # SPECIFY INGRESS
   ingressClassName: nginx
+  # ADD INGRESSCLASSNAME FIELD
   rules:
     - http:
         paths:
-          # PATH USING REGEX
           - path: /?(.*)
+            # UPDATE PATH
             pathType: ImplementationSpecific
+            # ADD PATHTYPE
             backend:
               service:
+                # UPDATE SERVICE FIELDS
                 name: client-cluster-ip-service
                 port:
                   number: 3000
-          # PATH USING REGEX
           - path: /api/?(.*)
+            # UPDATE PATH
             pathType: ImplementationSpecific
+            # ADD PATHTYPE
             backend:
               service:
+                # UPDATE SERVICE FIELDS
                 name: server-cluster-ip-service
                 port:
                   number: 5000

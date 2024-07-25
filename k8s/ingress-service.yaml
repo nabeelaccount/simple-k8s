@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+# UPDATE API
+kind: Ingress
+metadata:
+  name: ingress-service
+  annotations:
+    # ENABLE REGEX
+    nginx.ingress.kubernetes.io/use-regex: 'true'
+    # REMOVE REQUEST PATH WHEN FORWARDING REQUEST
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  # SPECIFY INGRESS
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+          # PATH USING REGEX
+          - path: /?(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: client-cluster-ip-service
+                port:
+                  number: 3000
+          # PATH USING REGEX
+          - path: /api/?(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: server-cluster-ip-service
+                port:
+                  number: 5000

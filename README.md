@@ -1,8 +1,6 @@
 # Simple deployment of kubernetes
 
-
-As this is a simple deployment and used for demostration purposes only, I advice you deploy it using minikube.
-
+As this is a simple deployment used for demostration purposes only, I advice you deploy it using minikube.
 
 ## Deploying ingress using minikube
 - Start minikube
